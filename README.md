@@ -8,10 +8,10 @@
 
 | Field | Value |
 |---|---|
-| **Team Name** | [Your Team Name] |
+| **Team Name** | [TechTress] |
 | **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | [Name] — [email@ibm.com] |
-| **Members** | [Name 1], [Name 2], [Name 3] |
+| **Team Lead** | [Priya Pedhadiya] — [email@ibm.com] |
+| **Members** | [Jiya Kothari], [Dhruvi Garala], [Krisha Thakor] |
 
 ---
 
