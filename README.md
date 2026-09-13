@@ -46,7 +46,7 @@ We are building an AI-powered Drug Safety Signal Detector and Regulatory Submiss
 |---|---|
 | **Languages** | Python |
 | **Frameworks** | Streamlit, Pandas, Scikit-learn |
-| **IBM Technologies** | IBM Bob, watsonx.ai |
+| **IBM Technologies** | IBM Bob |
 | **Databases** | SQLite |
 | **Other** | Git, GitHub, GitHub Actions |
 ---
