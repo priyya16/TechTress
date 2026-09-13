@@ -1,4 +1,4 @@
-# 🚀 [Your Project Title Here]
+# 🚀 # Drug Safety Signal Detector & Regulatory Submission Readiness Checker
 
 > ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
 
