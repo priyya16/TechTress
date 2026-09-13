@@ -10,7 +10,7 @@
 |---|---|
 | **Team Name** | TechTress |
 | **Track** | [AI / DevOps / Sustainability / Open] |
-| **Team Lead** | Priya Pedhadiya — [email@ibm.com] |
+| **Team Lead** | Priya Pedhadiya — priyyapedhadiya14979@gmail.com |
 | **Members** | Jiya Kothari, Dhruvi Garala, Krisha Thakor |
 
 ---
