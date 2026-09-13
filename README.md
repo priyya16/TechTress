@@ -9,7 +9,7 @@
 | Field | Value |
 |---|---|
 | **Team Name** | TechTress |
-| **Track** | [AI / DevOps / Sustainability / Open] |
+| **Track** | AI |
 | **Team Lead** | Priya Pedhadiya — priyyapedhadiya14979@gmail.com |
 | **Members** | Jiya Kothari, Dhruvi Garala, Krisha Thakor |
 
@@ -19,7 +19,7 @@
 
 > In 2–3 sentences: What problem does your project solve? Who experiences this problem?
 
-[Describe the real-world problem your project addresses. Be specific about who the user is and what pain point they face.]
+Pharmaceutical companies face significant challenges in manually reviewing large volumes of adverse-event reports and ensuring regulatory submission dossiers meet all required ICH M4 CTD sections. Missing emerging safety signals or incomplete submission sections can delay regulatory action and drug approvals, leading to significant financial and patient-safety risks.
 
 ---
 
@@ -27,30 +27,28 @@
 
 > In 2–3 sentences: What did you build? How does it solve the problem above?
 
-[Describe your solution clearly. Explain the core mechanism — what makes it work.]
+We are building an AI-powered Drug Safety Signal Detector and Regulatory Submission Readiness Checker with two modes. The Signal Detection mode analyzes adverse-event data, groups similar events, and calculates Proportional Reporting Ratio (PRR) statistics to flag potential safety signals, while the Submission Readiness mode checks a dossier outline against ICH M4 CTD requirements, provides module-wise completeness scores, and generates an actionable gap report.
 
 ---
 
 ## ✨ Key Features
 
-- **Feature 1:** [Brief description — e.g., "Real-time anomaly detection using watsonx.ai"]
-- **Feature 2:** [Brief description]
-- **Feature 3:** [Brief description]
-- **Feature 4:** [Optional]
-- **Feature 5:** [Optional]
-
+- **Feature 1:** Adverse-event clustering to identify patterns and emerging drug safety signals.
+- **Feature 2:** Proportional Reporting Ratio (PRR) calculation to flag potential safety signals.
+- **Feature 3:** ICH M4 CTD-based dossier completeness checking across all five modules.
+- **Feature 4:** Module-wise completeness scoring with an actionable regulatory gap report.
+- **Feature 5:** AI-powered summaries and recommendations to help reviewers prioritize critical findings.
 ---
 
 ## 🛠️ Tech Stack
 
 | Category | Technologies |
 |---|---|
-| **Languages** | [e.g., Python, TypeScript] |
-| **Frameworks** | [e.g., FastAPI, React] |
-| **IBM Technologies** | [e.g., watsonx.ai, IBM Bob, IBM Cloud] |
-| **Databases** | [e.g., PostgreSQL, Redis] |
-| **Other** | [e.g., Docker, GitHub Actions] |
-
+| **Languages** | Python |
+| **Frameworks** | Streamlit, Pandas, Scikit-learn |
+| **IBM Technologies** | IBM Bob, watsonx.ai |
+| **Databases** | SQLite |
+| **Other** | Git, GitHub, GitHub Actions |
 ---
 
 ## 📁 Repository Structure
