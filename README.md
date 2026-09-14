@@ -61,7 +61,7 @@ python -m pip install -r src/requirements.txt
 python -m streamlit run src/app.py
 ```
 
-Open http://localhost:8501
+Requires **Python 3.10+**. Open http://localhost:8501
 
 No `.env` file is required.
 
@@ -69,7 +69,7 @@ No `.env` file is required.
 python -m pytest src/test_core.py -v
 ```
 
-More detail: [docs/setup-guide.md](docs/setup-guide.md)
+More detail: [docs/setup-guide.md](docs/setup-guide.md) · [docs/architecture.md](docs/architecture.md) · [docs/problem-statement.md](docs/problem-statement.md) · [docs/solution-overview.md](docs/solution-overview.md)
 
 ## Demo
 
