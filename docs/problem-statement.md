@@ -1,21 +1,33 @@
 # Problem Statement
 
-## Background
+## Target audience
 
-[Describe the broader context. What domain or industry does this problem belong to? What situation creates the problem?]
+- Pharmacovigilance scientists and case-series reviewers who screen spontaneous reports.
+- Regulatory-affairs and medical-writing teams assembling ICH M4 Common Technical Document (CTD) dossiers.
+- Hackathon judges evaluating a transparent, local prototype rather than a certified product.
 
-## The Problem
+## Current problem
 
-[State the problem clearly and specifically. Avoid vague statements like "things are slow" — instead say "Operations teams spend an average of 45 minutes per incident diagnosing pipeline failures because logs are scattered across 6 different tools."]
+Two operational bottlenecks sit on the path from safety data to a filing:
 
-## Who is Affected
+1. **Drug safety signal detection.** Collections such as FDA FAERS contain millions of adverse-event reports. Reviewers must still notice unusual drug-event pairings in that volume. Manual spreadsheet review does not scale, and informal “this looks frequent” judgments are hard to reproduce.
+2. **Regulatory submission readiness.** A CTD dossier is organized into five ICH M4 modules covering administrative content, summaries, quality, nonclinical reports, and clinical reports. Missing or incomplete sections delay submission even when the science is otherwise ready.
 
-[Describe the specific user or persona experiencing this problem. Be concrete — not "developers" but "backend engineers managing CI/CD pipelines in enterprises with 50+ microservices."]
+## Why existing manual approaches are difficult
 
-## Why It Matters
+- Adverse-event files mix missing values, duplicate cases, and inconsistent drug or event names.
+- Disproportionality statistics such as Proportional Reporting Ratio (PRR) require a 2x2 table and careful handling of zeros; ad-hoc Excel formulas are easy to get wrong.
+- Free-text narratives, when present, are tedious to group by eye.
+- Dossier outlines are long checklists maintained in documents that do not automatically score module completeness or prioritize gaps.
 
-[What is the cost of this problem? Lost time? Revenue? Safety risk? Frustration? Quantify if possible.]
+## Quantified pain points
 
-## Why Existing Solutions Fall Short
+The challenge framing emphasizes:
 
-[Briefly explain what people currently do and why it doesn't fully solve the problem. This sets up why your solution is needed.]
+- **Millions** of FAERS-scale reports, which makes unaided signal hunting impractical.
+- **Five** ICH M4 CTD modules, each with many expected sections, so a single missed high-impact summary can stall a filing.
+- Reviewer time spent on **cleaning, counting, and checklisting** instead of scientific assessment.
+
+## Why this problem matters now
+
+Regulators and industry still rely on spontaneous-report screening as an early warning layer, while CTD remains the shared dossier format for many regions. A lightweight prototype that calculates PRR correctly and surfaces representative CTD gaps can shorten the time to a human review without claiming to replace that review. Patient safety and filing timelines both suffer when signals or missing modules stay hidden in volume.

@@ -1,0 +1,90 @@
+case_id,drug_name,adverse_event,age,sex,outcome,report_year,narrative
+AE-001,HeptraClear,Liver Injury,54,F,Hospitalized,2024,Patient developed elevated liver enzymes and jaundice after HeptraClear. Narrative is synthetic.
+AE-002,HeptraClear,Liver Injury,61,M,Hospitalized,2024,Synthetic report of hepatocellular injury during HeptraClear treatment with fatigue and dark urine.
+AE-003,HeptraClear,Liver Injury,47,F,Recovered,2023,Synthetic liver injury description including right-upper-quadrant pain after HeptraClear.
+AE-004,HeptraClear,Liver Injury,70,M,Hospitalized,2025,Hospital admission for acute hepatitis-like presentation while taking HeptraClear. Synthetic text.
+AE-005,HeptraClear,Liver Injury,58,F,Not recovered,2024,Persistent transaminase elevation attributed in this synthetic case to HeptraClear.
+AE-006,HeptraClear,Liver Injury,66,M,Hospitalized,2025,Synthetic narrative: liver injury cluster with nausea and abdominal pain on HeptraClear.
+AE-007,HeptraClear,Liver Injury,42,F,Recovered,2023,Mild synthetic liver injury that resolved after HeptraClear interruption.
+AE-008,HeptraClear,Liver Injury,73,M,Hospitalized,2024,Older adult synthetic case with marked ALT/AST increase on HeptraClear.
+AE-009,HeptraClear,Liver Injury,51,F,Hospitalized,2025,Synthetic report describing cholestatic features during HeptraClear therapy.
+AE-010,HeptraClear,Liver Injury,63,M,Recovered,2024,Synthetic HeptraClear liver injury with recovery after dechallenge.
+AE-011,HeptraClear,Nausea,45,F,Recovered,2024,Transient nausea after HeptraClear doses. Synthetic gastrointestinal complaint.
+AE-012,HeptraClear,Nausea,52,M,Recovered,2023,Synthetic nausea without liver test abnormalities on HeptraClear.
+AE-013,HeptraClear,Headache,39,F,Recovered,2025,Mild headache reported with HeptraClear. Synthetic nervous-system event.
+AE-014,HeptraClear,Rash,48,F,Recovered,2024,Maculopapular rash after HeptraClear. Synthetic dermatologic event.
+AE-015,Neuravex,Headache,34,F,Recovered,2024,Recurrent tension-like headache during Neuravex. Synthetic neurology narrative.
+AE-016,Neuravex,Headache,41,M,Recovered,2023,Synthetic headache reports clustered with Neuravex without red-flag features.
+AE-017,Neuravex,Headache,29,F,Recovered,2025,Young adult synthetic headache after Neuravex initiation.
+AE-018,Neuravex,Headache,55,M,Recovered,2024,Synthetic description of throbbing headache on Neuravex.
+AE-019,Neuravex,Headache,37,F,Recovered,2024,Neuravex headache with photophobia in this synthetic case.
+AE-020,Neuravex,Headache,46,M,Recovered,2023,Synthetic moderate headache that resolved with analgesia.
+AE-021,Neuravex,Headache,33,F,Recovered,2025,Another synthetic Neuravex headache without hospitalization.
+AE-022,Neuravex,Headache,50,M,Recovered,2024,Synthetic report of morning headaches while taking Neuravex.
+AE-023,Neuravex,Dizziness,44,F,Recovered,2024,Lightheadedness after Neuravex dose. Synthetic vestibular-like complaint.
+AE-024,Neuravex,Dizziness,62,M,Recovered,2023,Synthetic dizziness without syncope on Neuravex.
+AE-025,Neuravex,Nausea,28,F,Recovered,2025,Nausea during Neuravex titration. Synthetic GI event.
+AE-026,Neuravex,Nausea,57,M,Recovered,2024,Synthetic nausea and reduced appetite on Neuravex.
+AE-027,Neuravex,Liver Injury,49,F,Recovered,2024,Isolated synthetic liver-enzyme rise on Neuravex that later normalized.
+AE-028,Neuravex,Rash,36,F,Recovered,2023,Mild synthetic rash attributed temporally to Neuravex.
+AE-029,Cardionil,Dizziness,68,M,Hospitalized,2024,Orthostatic dizziness on Cardionil. Synthetic cardiovascular-adjacent event.
+AE-030,Cardionil,Dizziness,72,F,Recovered,2025,Synthetic dizziness after Cardionil dose increase.
+AE-031,Cardionil,Dizziness,64,M,Recovered,2023,Older adult synthetic dizziness without fall on Cardionil.
+AE-032,Cardionil,Dizziness,70,F,Hospitalized,2024,Synthetic near-syncope and dizziness during Cardionil therapy.
+AE-033,Cardionil,Dizziness,59,M,Recovered,2025,Transient synthetic dizziness reported with Cardionil.
+AE-034,Cardionil,Dizziness,75,F,Recovered,2024,Synthetic postural dizziness in an elderly Cardionil recipient.
+AE-035,Cardionil,QT Prolongation,71,M,Hospitalized,2024,ECG showed QTc prolongation on Cardionil. Synthetic cardiac monitoring note.
+AE-036,Cardionil,QT Prolongation,66,F,Hospitalized,2025,Synthetic QTc increase prompting Cardionil review.
+AE-037,Cardionil,QT Prolongation,69,M,Not recovered,2024,Persistent synthetic QT prolongation while remaining on Cardionil.
+AE-038,Cardionil,QT Prolongation,74,F,Hospitalized,2023,Synthetic arrhythmia-watch report with prolonged QTc on Cardionil.
+AE-039,Cardionil,QT Prolongation,63,M,Recovered,2025,QTc normalized after Cardionil adjustment in this synthetic case.
+AE-040,Cardionil,Headache,58,F,Recovered,2024,Mild synthetic headache during Cardionil treatment.
+AE-041,Cardionil,Nausea,60,M,Recovered,2023,Synthetic nausea without chest pain on Cardionil.
+AE-042,Cardionil,Liver Injury,67,F,Recovered,2024,Low-level synthetic liver-enzyme change on Cardionil.
+AE-043,Amplitide,Rash,31,F,Recovered,2024,Itchy synthetic rash after Amplitide. Dermatologic narrative only.
+AE-044,Amplitide,Rash,26,M,Recovered,2025,Synthetic urticarial rash temporally associated with Amplitide.
+AE-045,Amplitide,Rash,40,F,Recovered,2023,Diffuse synthetic rash that resolved after Amplitide pause.
+AE-046,Amplitide,Rash,22,F,Recovered,2024,Young adult synthetic rash on Amplitide without mucosal involvement.
+AE-047,Amplitide,Rash,35,M,Recovered,2025,Synthetic macular rash reported with Amplitide.
+AE-048,Amplitide,Anaphylaxis,29,F,Hospitalized,2024,Synthetic anaphylaxis narrative with hypotension after Amplitide injection.
+AE-049,Amplitide,Anaphylaxis,33,M,Hospitalized,2025,Emergency synthetic report of anaphylaxis during Amplitide administration.
+AE-050,Amplitide,Anaphylaxis,27,F,Hospitalized,2023,Synthetic airway swelling and anaphylaxis temporally linked to Amplitide.
+AE-051,Amplitide,Nausea,38,F,Recovered,2024,Synthetic nausea after oral Amplitide.
+AE-052,Amplitide,Headache,44,M,Recovered,2024,Synthetic headache without rash on Amplitide.
+AE-053,Amplitide,Dizziness,30,F,Recovered,2025,Brief synthetic dizziness after Amplitide.
+AE-054,Placebol,Headache,40,M,Recovered,2024,Synthetic headache in Placebol-exposed comparator-like reports.
+AE-055,Placebol,Headache,51,F,Recovered,2023,Another synthetic Placebol headache without hospitalization.
+AE-056,Placebol,Headache,36,M,Recovered,2025,Mild synthetic headache listed for Placebol.
+AE-057,Placebol,Nausea,48,F,Recovered,2024,Synthetic nausea on Placebol with quick recovery.
+AE-058,Placebol,Nausea,53,M,Recovered,2024,GI synthetic complaint during Placebol observation.
+AE-059,Placebol,Nausea,45,F,Recovered,2023,Synthetic nausea and dyspepsia on Placebol.
+AE-060,Placebol,Rash,32,F,Recovered,2025,Limited synthetic rash for Placebol.
+AE-061,Placebol,Dizziness,61,M,Recovered,2024,Synthetic dizziness without ECG changes on Placebol.
+AE-062,Placebol,Dizziness,57,F,Recovered,2023,Self-limited synthetic dizziness reported with Placebol.
+AE-063,Placebol,Liver Injury,50,M,Recovered,2024,Isolated synthetic liver-enzyme fluctuation on Placebol.
+AE-064,Placebol,Liver Injury,46,F,Recovered,2025,Minimal synthetic hepatic laboratory change on Placebol.
+AE-065,HeptraClear,Liver Injury,55,F,Hospitalized,2025,Additional synthetic HeptraClear hepatic signal-like report with fatigue.
+AE-066,HeptraClear,Liver Injury,69,M,Hospitalized,2024,Synthetic severe liver injury description used only for screening demonstration.
+AE-067,Neuravex,Headache,42,F,Recovered,2025,Extra synthetic Neuravex headache to balance frequencies.
+AE-068,Neuravex,Headache,38,M,Recovered,2024,Synthetic headache recurrence on Neuravex.
+AE-069,Cardionil,QT Prolongation,77,M,Hospitalized,2025,Synthetic QTc outlier in an older Cardionil patient.
+AE-070,Amplitide,Anaphylaxis,24,F,Hospitalized,2024,Fourth synthetic anaphylaxis case clustered with Amplitide.
+AE-071,Placebol,Headache,43,F,Recovered,2024,Synthetic control-like headache on Placebol.
+AE-072,Placebol,Nausea,39,M,Recovered,2025,Synthetic nausea without other events on Placebol.
+AE-073,HeptraClear,Dizziness,60,F,Recovered,2023,Synthetic dizziness while taking HeptraClear.
+AE-074,Cardionil,Nausea,65,F,Recovered,2024,Synthetic nausea during Cardionil use.
+AE-075,Amplitide,Nausea,41,M,Recovered,2023,Synthetic GI upset on Amplitide.
+AE-076,Neuravex,Rash,47,M,Recovered,2025,Synthetic rash without anaphylaxis on Neuravex.
+AE-077,Placebol,Rash,28,M,Recovered,2024,Synthetic mild rash on Placebol.
+AE-078,HeptraClear,Nausea,56,M,Recovered,2025,Synthetic nausea accompanying HeptraClear exposure.
+AE-079,Cardionil,Dizziness,71,M,Recovered,2025,Additional synthetic dizziness on Cardionil.
+AE-080,Amplitide,Rash,34,F,Recovered,2024,Synthetic delayed rash after Amplitide.
+AE-081,Placebol,QT Prolongation,52,M,Recovered,2024,Isolated synthetic QTc change on Placebol to keep the 2x2 table defined.
+AE-082,Neuravex,Anaphylaxis,35,F,Hospitalized,2025,Rare synthetic anaphylaxis on Neuravex so Amplitide PRR remains computable.
+AE-083,heptraclear,hepatic injury,59,F,Hospitalized,2025,Lowercase drug and hepatic-injury synonym. Synthetic mapping test. Hospitalized.
+AE-084, HeptraClear ,Liver Injury,64,M,Not recovered,2023,Extra spaces around the drug name. Synthetic cleaning example.
+AE-085,Amplitide,anaphylactic reaction,31,F,Hospitalized,2023,Synonym for anaphylaxis with fatal-risk wording: hypotension. Synthetic.
+AE-086,CARDIONIL,QTc prolongation,72,M,Hospitalized,2023,Year-2023 QT synonym row for trend demo. Synthetic.
+AE-087,Placebol,Headache,40,F,Recovered,2023,Extra 2023 Placebol headache for year-trend balance. Synthetic.
+AE-088,HeptraClear,Liver Injury,77,M,Fatal,2025,Synthetic fatal outcome keyword in the outcome field for severity flags.
+

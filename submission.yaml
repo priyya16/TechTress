@@ -9,51 +9,61 @@
 # =============================================================================
 
 team:
-  name: ""                             # REQUIRED — e.g., "Orion Squad"
-  track: ""                            # REQUIRED — one of: AI | DevOps | Sustainability | Open
+  name: "TechTress"                    # REQUIRED — e.g., "Orion Squad"
+  track: "AI"                          # REQUIRED — one of: AI | DevOps | Sustainability | Open
   lead:
-    name: ""                           # REQUIRED — e.g., "Alice Chen"
-    email: ""                          # REQUIRED — e.g., "alice.chen@ibm.com"
+    name: "Priya Pedhadiya"            # REQUIRED — e.g., "Alice Chen"
+    email: "priyyapedhadiya1497@gmail.com"  # REQUIRED — e.g., "alice.chen@ibm.com"
   members:
-    - name: ""                         # REQUIRED — Team member 1
+    - name: "Jiya Kothari"             # REQUIRED — Team member 1
       email: ""
-    - name: ""                         # Add more members by copying the two lines above
+    - name: "Dhruvi Garala"            # Add more members by copying the two lines above
       email: ""
-    - name: ""
+    - name: "Krisha Thakor"
       email: ""
 
 submission:
-  title: ""                            # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
+  title: "Drug Safety Signal Detector & Regulatory Submission Readiness Checker"  # REQUIRED — Project display name, e.g., "SmartOps Dashboard"
 
   problem_statement: >                 # REQUIRED — 1-3 sentences. What problem? Who has it?
-    Replace this text with a concise description of the real-world problem
-    your project addresses and who experiences it.
+    Pharmacovigilance and regulatory-affairs reviewers must screen very large
+    adverse-event collections such as FDA FAERS and assemble ICH M4 CTD dossiers
+    that span five modules. Manual review makes emerging safety signals easy to
+    miss and incomplete dossier sections easy to overlook, which can delay
+    regulatory action.
 
   solution_summary: >                  # REQUIRED — 1-3 sentences. What did you build?
-    Replace this text with a clear description of your solution
-    and how it addresses the problem above.
+    TechTress built a local Streamlit prototype with two modes: PRR/ROR/chi-square
+    screening plus TF-IDF clustering, LDA topics, and Isolation Forest ranking,
+    and a representative ICH M4 CTD completeness checker. All ML runs locally
+    with scikit-learn; no external AI API is required at runtime.
 
   key_features:                        # REQUIRED — List 3 to 5 specific features you implemented
-    - ""                               # e.g., "Real-time pipeline anomaly detection using watsonx.ai"
-    - ""
-    - ""
-    - ""                               # optional 4th
-    - ""                               # optional 5th
+    - "TF-IDF/KMeans clustering, LDA topics, and cosine similar-narrative search"
+    - "2x2 PRR plus ROR and chi-square, with Isolation Forest reviewer ranking"
+    - "Potential safety-signal tables, charts, and CSV export"
+    - "Representative ICH M4 CTD mapping with module-wise completeness scoring"
+    - "Downloadable gap report with rule-based reviewer explanations"
 
   tech_stack:
-    languages: []                      # REQUIRED — e.g., ["Python", "TypeScript"]
-    frameworks: []                     # e.g., ["FastAPI", "React"]
-    ibm_technologies: []               # e.g., ["watsonx.ai", "IBM Bob", "IBM Cloud Functions"]
-    databases: []                      # e.g., ["PostgreSQL", "Redis"]
-    other: []                          # e.g., ["Docker", "GitHub Actions", "Slack API"]
+    languages: ["Python"]              # REQUIRED — e.g., ["Python", "TypeScript"]
+    frameworks: ["Streamlit", "Pandas", "NumPy", "scikit-learn", "Plotly"]
+    ibm_technologies: ["IBM Bob"]      # development workflow only; not a runtime service
+    databases: []
+    other: ["Git", "GitHub", "GitHub Actions", "pytest"]
 
   what_we_are_most_proud_of: >         # Optional but recommended — guides judges to your best work
-    Replace with what aspect of the submission you consider strongest
-    and want judges to pay special attention to.
+    The same reviewer workspace combines statistically correct PRR screening
+    (including explicit invalid-calculation handling) with an honest CTD
+    readiness score. We did not invent medical conclusions or claim a complete
+    regulatory checklist.
 
   known_limitations: >                 # Optional but recommended — be honest about gaps
-    Replace with any known limitations, incomplete features,
-    or shortcuts taken due to time constraints.
+    This is a prototype. Sample or synthetic data may be used and is not the
+    complete FDA FAERS database. The tool does not replace pharmacovigilance
+    experts and is not a certified medical or regulatory compliance system.
+    The CTD checklist is representative rather than exhaustive. IBM Bob was
+    used in development, not as a production inference backend.
 
 # =============================================================================
 # ARTIFACT LOCATIONS

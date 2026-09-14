@@ -1,26 +1,16 @@
 # Screenshots
 
-Place your application screenshots in this folder.
+Application screenshots of the running Streamlit prototype.
 
 ## Naming Convention
 
-Name your screenshots sequentially so they appear in logical order:
-
-  01-landing-page.png       ← First thing a user sees
-  02-main-feature.png       ← Your primary feature in action
-  03-output-or-results.png  ← The result / value delivered
-  04-additional-feature.png ← Any other notable screen
+  01-home.png
+  02-signal-detection.png
+  03-prr-results.png
+  04-submission-readiness.png
 
 ## Requirements
 
-- Minimum: 3 screenshots
-- Format: PNG or JPG
-- Show the application running with real (or realistic mock) data
-- Avoid screenshots of empty states or placeholder data
-- Captions are not required but appreciated
-
-## Tips
-
-- Use a consistent browser window size across all screenshots
-- Highlight key UI elements with arrows/circles if helpful (use any image editor)
-- Include a screenshot showing IBM technology integration if applicable
+- Show the application running with sample / synthetic data
+- Dark theme dashboard
+- Not empty placeholder screens

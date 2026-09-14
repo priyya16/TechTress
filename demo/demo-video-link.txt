@@ -1,15 +1,6 @@
-https://youtu.be/your-demo-video-link-here
+NOT RECORDED YET — record a 3-5 minute walkthrough of the running Streamlit app and replace this first line with a public YouTube, Loom, IBM Box, or Google Drive URL.
 
-Replace the URL above with a link to your demo video.
-
-Accepted platforms:
-  - YouTube (public or unlisted)
-  - Loom (https://www.loom.com/share/...)
-  - IBM Box (https://ibm.box.com/s/...)
-  - Google Drive (set to "Anyone with the link can view")
-
-Video requirements:
-  - Length: 3–5 minutes maximum
-  - Must show the application running (not just slides)
-  - Should walk through at least one key feature end-to-end
-  - Audio narration strongly recommended
+Instructions for the team:
+  - Show Signal Detection with sample / synthetic data, PRR table, charts, and CSV download.
+  - Show Submission Readiness with the sample outline, module scores, and gap-report download.
+  - Do not record slides only. The validator rejects the original placeholder string your-demo-video-link-here.

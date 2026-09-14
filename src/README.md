@@ -1,47 +1,31 @@
-# Source Code
+# Source code (`src/`)
 
-Place all your project's source code in this folder.
+This folder is the **entire application**. Judges and teammates should start with the root [README.md](../README.md) for the full story, then run from the repo root:
 
-## Structure Guidelines
-
-Organize your code logically. Here are common patterns — use whatever fits
-your project:
-
-### Web Application
-```
-src/
-  backend/        ← API server code
-  frontend/       ← UI code
-  shared/         ← Shared utilities/types
+```bash
+python -m pip install -r src/requirements.txt
+python -m streamlit run src/app.py
 ```
 
-### Data / AI Project
+## What each file does
+
+| File | Role |
+|---|---|
+| `app.py` | Streamlit frontend (pages, widgets, charts, downloads) |
+| `pipeline.py` | Backend functions the UI calls |
+| `data_processor.py` | CSV load, validation, cleaning |
+| `quality.py` | Synonyms, severity keywords, year counts, case rows |
+| `prr_analysis.py` | 2×2 PRR |
+| `ml_screening.py` | ROR, chi-square, Isolation Forest, method agreement |
+| `signal_detection.py` | TF-IDF / KMeans / LDA / similar reports |
+| `submission_checker.py` | Representative ICH M4 completeness |
+| `explanations.py` | Rule-based text (no API) |
+| `utils.py` | Paths and shared labels |
+| `test_core.py` | pytest |
+| `sample_data/` | Synthetic CSV and dossier outline |
+
+`.env.example` documents that **no API keys are required**. Do not commit `.env`.
+
+```bash
+python -m pytest src/test_core.py -v
 ```
-src/
-  data/           ← Data ingestion / preprocessing
-  models/         ← ML model code
-  api/            ← Serving layer
-  notebooks/      ← Jupyter notebooks (exploration)
-```
-
-### CLI / Script-based Tool
-```
-src/
-  cli/            ← CLI entry points
-  lib/            ← Core logic
-  utils/          ← Helpers
-```
-
-## Important Files to Include
-
-- `requirements.txt` or `package.json` — dependency manifest
-- `.env.example` — template for environment variables (NEVER commit `.env`)
-- Any database migration files
-- Configuration files
-
-## What NOT to Include in src/
-
-- `.env` files with real secrets
-- Large binary files (use Git LFS or link externally)
-- `node_modules/` or `venv/` (these are in `.gitignore`)
-- Build artifacts (`dist/`, `build/`, `__pycache__/`)

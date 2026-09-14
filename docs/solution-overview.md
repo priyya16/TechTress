@@ -1,41 +1,52 @@
 # Solution Overview
 
-## What We Built
+## What we built
 
-[Describe your solution in plain language. Avoid jargon — write as if explaining to a smart colleague unfamiliar with your tech stack.]
+TechTress built a dark-themed Streamlit dashboard with two modes:
 
-## How It Works
+- **Signal Detection** — clean a CSV of representative adverse-event reports, detect patterns, calculate PRR, rank **Potential Safety Signals**, visualize findings, and download results.
+- **Submission Readiness** — map a dossier outline to a **representative** ICH M4 CTD checklist, score each module, compute an overall readiness score, and download a gap report.
 
-[Explain the core mechanism step by step. A numbered list or simple flow works well here.]
+The application runs locally. It does not require IBM Cloud, watsonx.ai, or any other external inference API.
 
-1. [Step 1: e.g., "User connects their GitHub repository via OAuth"]
-2. [Step 2: e.g., "The system ingests pipeline logs and feeds them to watsonx.ai"]
-3. [Step 3: e.g., "An anomaly score is computed and displayed on the dashboard"]
-4. [Step 4: e.g., "Alerts are sent to Slack when the score exceeds a threshold"]
+## Solution architecture at a high level
 
-## Architecture Diagram
-
-> See [`architecture.md`](architecture.md) for the detailed diagram.
-
-[Optionally include a simple ASCII or Mermaid diagram here for quick reference.]
+The user interacts only with Streamlit. Pandas and NumPy prepare tables. scikit-learn optionally clusters narratives. Plotly draws charts. Rule-based text in `explanations.py` interprets PRR rows and CTD gaps. IBM Bob was used while designing and writing this code; it is not called when a reviewer clicks Run.
 
 ```
-[User] → [Frontend: React] → [API: FastAPI] → [watsonx.ai] → [Dashboard]
-                                    ↓
-                             [PostgreSQL DB]
+Reviewer → Streamlit (src/app.py)
+            ├─ Signal path: data_processor → signal_detection → prr_analysis → CSV
+            └─ CTD path:    submission_checker → gap report CSV
 ```
 
-## Key Design Decisions
+## Two application modes
+
+1. Upload or load sample adverse-event data → validate → clean → cluster or group → PRR → rank → explain → download.
+2. Upload, paste, or load a sample outline → parse sections → map to five modules → score → prioritize gaps → download.
+
+## Core mechanisms
+
+- **PRR / ROR / chi-square** use the same 2x2 table, with explicit zero handling.
+- **Clustering** uses TF-IDF + KMeans, LDA topics, and cosine nearest neighbors when narratives exist; otherwise frequency grouping.
+- **Isolation Forest** flags unusual drug-event pairs inside the current file and feeds a transparent reviewer priority score.
+- **CTD scoring** is a weighted completeness percentage across a documented representative checklist (not an exhaustive filing list).
+- **Explanations** are deterministic templates filled with those metrics. They are not calls to a hosted model.
+
+## Differentiation
+
+Many dashboards either plot raw counts or claim automated medical decisions. This prototype stays in the middle: reproducible screening math, visible 2x2 counts, and honest status labels (`Potential Safety Signal`, `Below Threshold`, `Insufficient Data`, `Undefined`).
+
+## Design decisions
 
 | Decision | Rationale |
 |---|---|
-| [e.g., Used watsonx.ai for anomaly detection] | [e.g., Pre-trained models reduced time-to-value vs. building from scratch] |
-| [Decision 2] | [Rationale 2] |
-| [Decision 3] | [Rationale 3] |
+| Streamlit only, no FastAPI/React | Matches the official Python prototype stack and stays inside `src/`. |
+| No SQLite | The demo is file-in, table-out; persistence would not improve the judge flow. |
+| No watsonx.ai at runtime | The core app must work without an external AI API. |
+| Representative CTD list in code | Judges can read exactly what is scored. |
+| Sample / synthetic data labeled as such | Avoids implying we redistributed FAERS. |
+| IBM Bob for development | Used for planning, generation, refactoring, tests, and docs — not as a production model host. |
 
-## IBM Technologies Used
+## User experience
 
-[Explain specifically HOW you used each IBM technology — not just that you used it.]
-
-- **[IBM Tech 1, e.g., watsonx.ai]:** [How it was used — e.g., "Used the `ibm/granite-13b-instruct-v2` model via the Python SDK to classify anomaly types from log text."]
-- **[IBM Tech 2]:** [How it was used]
+The home page states both product names. The sidebar switches modes. Metrics, tables, expanders, progress bars, and Plotly charts keep the demo readable. Errors (bad CSV, missing columns, empty dossier text) surface as Streamlit messages instead of stack traces.

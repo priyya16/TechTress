@@ -1,119 +1,104 @@
-# 🚀 # Drug Safety Signal Detector & Regulatory Submission Readiness Checker
+# Drug Safety Signal Detector & Regulatory Submission Readiness Checker
 
-> ⚠️ **Replace everything in `[ ]` brackets with your actual content before submission.**
-
----
-
-## 👥 Team
+## Team
 
 | Field | Value |
 |---|---|
 | **Team Name** | TechTress |
 | **Track** | AI |
-| **Team Lead** | Priya Pedhadiya — priyyapedhadiya14979@gmail.com |
+| **Team Lead** | Priya Pedhadiya — priyyapedhadiya1497@gmail.com |
 | **Members** | Jiya Kothari, Dhruvi Garala, Krisha Thakor |
 
----
+## Problem Statement
 
-## 🎯 Problem Statement
+FDA FAERS-scale adverse-event collections contain millions of reports, so reviewers cannot reliably spot emerging drug-event patterns by hand. At the same time, a marketing-authorization CTD dossier spans five ICH M4 modules, and missing sections delay submission. Safety and regulatory teams need a transparent screening workspace that ranks potential signals and shows dossier gaps without pretending to be a certified pharmacovigilance or compliance system.
 
-> In 2–3 sentences: What problem does your project solve? Who experiences this problem?
+## Solution
 
-Pharmaceutical companies face significant challenges in manually reviewing large volumes of adverse-event reports and ensuring regulatory submission dossiers meet all required ICH M4 CTD sections. Missing emerging safety signals or incomplete submission sections can delay regulatory action and drug approvals, leading to significant financial and patient-safety risks.
+The prototype is a two-mode **Streamlit** application. The UI (`src/app.py`) calls backend modules through `src/pipeline.py`. There is no FastAPI server and no external AI API at runtime.
 
----
+1. **Signal Detection** loads a CSV (or bundled sample / synthetic data), cleans and validates it, maps simple name variants, groups or clusters patterns, calculates PRR (plus ROR and chi-square), flags **Potential Safety Signals**, and exports results.
+2. **Submission Readiness** maps a dossier outline to a documented representative ICH M4 CTD checklist, scores each module, computes an overall readiness score, and downloads a prioritized gap report.
 
-## 💡 Solution
+Rule-based explanations describe why a pair was flagged or why a gap is high priority. They are filled from calculated numbers, not from a hosted model.
 
-> In 2–3 sentences: What did you build? How does it solve the problem above?
+## Key Features
 
-We are building an AI-powered Drug Safety Signal Detector and Regulatory Submission Readiness Checker with two modes. The Signal Detection mode analyzes adverse-event data, groups similar events, and calculates Proportional Reporting Ratio (PRR) statistics to flag potential safety signals, while the Submission Readiness mode checks a dossier outline against ICH M4 CTD requirements, provides module-wise completeness scores, and generates an actionable gap report.
+- Adverse-event clustering (TF-IDF + KMeans), LDA topics, and similar-narrative search when text exists
+- PRR, ROR, chi-square, and a **Method Agreement** column (both high vs only one method)
+- Isolation Forest anomaly flags and a reviewer priority score
+- Case-level drill-down, report-year trends, synonym normalization, and narrative severity keyword flags
+- ICH M4 CTD completeness checking across five modules
+- Module-wise readiness scoring and an overall readiness score
+- Downloadable gap report with priority and recommendation columns
+- Rule-based explanations from calculated metrics (offline)
 
----
-
-## ✨ Key Features
-
-- **Feature 1:** Adverse-event clustering to identify patterns and emerging drug safety signals.
-- **Feature 2:** Proportional Reporting Ratio (PRR) calculation to flag potential safety signals.
-- **Feature 3:** ICH M4 CTD-based dossier completeness checking across all five modules.
-- **Feature 4:** Module-wise completeness scoring with an actionable regulatory gap report.
-- **Feature 5:** AI-powered summaries and recommendations to help reviewers prioritize critical findings.
----
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technologies |
 |---|---|
 | **Languages** | Python |
-| **Frameworks** | Streamlit, Pandas, Scikit-learn |
-| **IBM Technologies** | IBM Bob |
-| **Databases** | SQLite |
-| **Other** | Git, GitHub, GitHub Actions |
----
+| **Frameworks / libraries** | Streamlit, Pandas, NumPy, scikit-learn, Plotly |
+| **IBM technologies (development)** | IBM Bob used for architecture planning, code generation, explanation, refactoring, tests, and documentation |
+| **Databases** | None |
+| **Other** | Git, GitHub, GitHub Actions, pytest |
 
-## 📁 Repository Structure
+IBM Bob is **not** a runtime dependency. FastAPI, React, Docker, PostgreSQL, and watsonx.ai are **not** used in the running app.
 
-```
-├── src/                  # All source code
-├── docs/                 # Written documentation
-│   ├── problem-statement.md
-│   ├── solution-overview.md
-│   ├── architecture.md
-│   └── setup-guide.md
-├── demo/                 # Demo artifacts
-│   ├── screenshots/      # App screenshots
-│   └── demo-video-link.txt  # Link to demo video
-├── presentation/         # Slide deck
-└── submission.yaml       # Structured submission metadata
-```
-
----
-
-## ⚡ How to Run
-
-> **Copy these exact steps from your [`docs/setup-guide.md`](docs/setup-guide.md)**
+## How to Run
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/[your-repo].git
-cd [your-repo]
+git clone https://github.com/priyya16/TechTress.git
+cd TechTress
 
-# 2. Install dependencies
-[your install command here]
+python -m venv .venv
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+# macOS / Linux
+# source .venv/bin/activate
 
-# 3. Configure environment
-cp .env.example .env
-# Edit .env with your values
-
-# 4. Run the project
-[your run command here]
+python -m pip install -r src/requirements.txt
+python -m streamlit run src/app.py
 ```
 
----
+Open http://localhost:8501
 
-## 🖥️ Demo
+No `.env` file is required.
 
-| Artifact | Link |
+```bash
+python -m pytest src/test_core.py -v
+```
+
+More detail: [docs/setup-guide.md](docs/setup-guide.md)
+
+## Demo
+
+1. Start Streamlit and open **Signal Detection**.
+2. Keep **Sample / Synthetic Data** selected (the default).
+3. Review cleaning, statistics, clustering, PRR / ROR / agreement, case drill-down, and year charts.
+4. Download `prr_signal_results.csv`.
+5. Switch to **Submission Readiness**.
+6. Keep the sample dossier outline selected.
+7. Review module scores, overall readiness, and high-priority gaps.
+8. Download `ctd_gap_report.csv`.
+
+| Artifact | Location |
 |---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
-| 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
-| 📊 Presentation | [See presentation/slides.pdf](presentation/) |
+| Demo video | [demo/demo-video-link.txt](demo/demo-video-link.txt) |
+| Live demo | [demo/live-demo-url.txt](demo/live-demo-url.txt) |
+| Screenshots | [demo/screenshots/](demo/screenshots/) |
+| Presentation | [presentation/](presentation/) |
 
----
+## Known Limitations
 
-## ⚠️ Known Limitations
+- Prototype only — not production pharmacovigilance software.
+- Sample / representative / synthetic data may be used. It is **not** the complete FDA FAERS dataset.
+- Not a replacement for pharmacovigilance experts.
+- Not a certified medical device or regulatory compliance system.
+- The CTD checklist is representative rather than exhaustive.
+- PRR is a statistical screening ratio, not a causal medical conclusion.
+- Record a public demo video and put the URL on line 1 of `demo/demo-video-link.txt` before final submission if it is not there yet.
 
-> Be honest — judges appreciate transparency over overclaiming.
+## What We're Most Proud Of
 
-- [Limitation 1: e.g., "Authentication is mocked — not production-ready"]
-- [Limitation 2: e.g., "Only tested on Chrome"]
-- [Limitation 3: e.g., "Feature X is scaffolded but not fully implemented"]
-
----
-
-## 🏅 What We're Most Proud Of
-
-[Tell the judges what part of your submission is strongest and worth paying close attention to.]
-
----
+We combined statistically careful safety-signal screening (including invalid 2×2 handling and PRR/ROR agreement) with practical CTD readiness checking in one reviewer-facing dashboard. Honest limitation language matters more here than claiming a complete regulatory engine.
