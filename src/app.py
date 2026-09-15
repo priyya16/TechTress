@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
+import sys
 from io import StringIO
+from pathlib import Path
+
+# Streamlit Cloud runs from the repo root; sibling imports live in src/.
+_SRC_DIR = str(Path(__file__).resolve().parent)
+if _SRC_DIR not in sys.path:
+    sys.path.insert(0, _SRC_DIR)
 
 import pandas as pd
 import plotly.express as px
