@@ -139,7 +139,6 @@ More detail: [docs/setup-guide.md](docs/setup-guide.md) · [docs/architecture.md
 - Not a certified medical device or regulatory compliance system.
 - The CTD checklist is representative rather than exhaustive.
 - PRR is a statistical screening ratio, not a causal medical conclusion.
-- Record a public demo video and put the URL on line 1 of `demo/demo-video-link.txt` before final submission if it is not there yet.
 
 ---
 
