@@ -1,6 +1,6 @@
 # Presentation
 
-`slides.pdf` is the judge-facing deck (5–8 slides).
+`TechTress_Drug_Safety_Deck.pdf` is the judge-facing deck (5–8 slides).
 
 Recommended talking order:
 
