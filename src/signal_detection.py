@@ -45,6 +45,7 @@ def cluster_reports(frame: pd.DataFrame, random_state: int = 42) -> dict:
             "summaries": counts,
             "frame": labeled,
             "n_clusters": 0,
+            "n_narrative_reports": 0,
             "silhouette": None,
             "lda_topics": pd.DataFrame(),
             "similar_reports": pd.DataFrame(),
@@ -70,6 +71,7 @@ def cluster_reports(frame: pd.DataFrame, random_state: int = 42) -> dict:
             "summaries": counts,
             "frame": labeled,
             "n_clusters": 0,
+            "n_narrative_reports": 0,
             "silhouette": None,
             "lda_topics": pd.DataFrame(),
             "similar_reports": pd.DataFrame(),
@@ -100,12 +102,26 @@ def cluster_reports(frame: pd.DataFrame, random_state: int = 42) -> dict:
             .head(3)
             .index.tolist()
         )
+        examples = (
+            labeled.loc[member_mask, text_col]
+            .fillna("")
+            .astype(str)
+            .map(str.strip)
+        )
+        unique_examples: list[str] = []
+        for text in examples.tolist():
+            if len(text) < 20 or text in unique_examples:
+                continue
+            unique_examples.append(text)
+            if len(unique_examples) == 3:
+                break
         summaries.append(
             {
                 "cluster": cluster_id,
                 "reports": int(member_mask.sum()),
                 "top_terms": top_terms,
                 "common_events": ", ".join(top_events),
+                "example_narratives": unique_examples,
             }
         )
 
@@ -189,6 +205,7 @@ def cluster_reports(frame: pd.DataFrame, random_state: int = 42) -> dict:
         "summaries": pd.DataFrame(summaries),
         "frame": labeled,
         "n_clusters": n_clusters,
+        "n_narrative_reports": int(usable.sum()),
         "silhouette": None if silhouette is None else round(silhouette, 3),
         "lda_topics": lda_topics,
         "similar_reports": similar,

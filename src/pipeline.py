@@ -18,7 +18,7 @@ from data_processor import (
 )
 from ml_screening import enrich_signal_table
 from prr_analysis import analyze_prr, count_potential_signals
-from quality import pair_severity_summary
+from quality import emerging_signal_table, pair_original_labels, pair_severity_summary
 from signal_detection import cluster_reports
 from submission_checker import evaluate_dossier, parse_dossier_text
 
@@ -38,12 +38,16 @@ def run_signal_pipeline(
     clustering = cluster_reports(cleaned)
     results = analyze_prr(cleaned, min_a=min_a, min_prr=min_prr)
     results = enrich_signal_table(results, min_prr=min_prr, min_ror=min_prr)
+    originals = pair_original_labels(cleaned)
+    if not originals.empty:
+        results = results.merge(originals, on=["Drug", "Adverse Event"], how="left")
     severity = pair_severity_summary(cleaned)
     if not severity.empty:
         results = results.merge(severity, on=["Drug", "Adverse Event"], how="left")
         for col in ("Cases with severity keywords", "hospitalized_mentions", "fatal_mentions"):
             if col in results.columns:
                 results[col] = results[col].fillna(0).astype(int)
+    emerging, emerging_reason = emerging_signal_table(cleaned, results, min_a=min_a)
     return {
         "cleaned": cleaned,
         "clean_report": clean_report,
@@ -53,6 +57,11 @@ def run_signal_pipeline(
         "n_signals": count_potential_signals(results),
         "n_anomalies": int((results.get("ML Anomaly") == "Anomalous pair").sum())
         if "ML Anomaly" in results.columns
+        else 0,
+        "emerging": emerging,
+        "emerging_reason": emerging_reason,
+        "n_insufficient": int((results["Signal Status"] == "Insufficient Data").sum())
+        if "Signal Status" in results.columns
         else 0,
     }
 

@@ -116,8 +116,10 @@ def test_cleaning_drops_missing_and_duplicates():
     )
     frame = load_adverse_event_csv(raw)
     cleaned, report = clean_adverse_events(frame)
-    assert report["duplicate_rows_removed"] == 1
+    assert report["duplicate_rows_removed"] == 0
     assert report["invalid_or_missing_required"] == 2
+    assert len(cleaned) == 3
+    assert cleaned["adverse_event"].tolist().count("Headache") == 2
     assert set(cleaned["adverse_event"]) == {"Headache", "Rash"}
 
 
@@ -256,5 +258,268 @@ def test_synonyms_severity_and_year_counts():
     assert method_agreement(3, 1.2, 2, 2) == "Only PRR high"
     assert method_agreement(1.1, 5, 2, 2) == "Only ROR high"
     assert method_agreement(1.1, 1.1, 2, 2) == "Neither high"
+
+
+def test_repeated_reports_are_counted_for_prr():
+    raw = StringIO(
+        "drug_name,adverse_event\n"
+        + "Drug-A,Headache\n" * 9
+        + "Drug-A,Dizziness\n" * 4
+        + "Drug-A,Nausea\n" * 2
+        + "Drug-B,Nausea\n" * 2
+        + "Drug-B,Rash\n" * 2
+        + "Drug-B,Fatigue\n"
+        + "Drug-B,Headache\n"
+        + "Drug-C,Fatigue\n" * 3
+        + "Drug-C,Nausea\n" * 3
+        + "Drug-C,Rash\n" * 2
+        + "Drug-C,Headache\n"
+    )
+    from pipeline import run_signal_pipeline
+
+    frame = load_adverse_event_csv(raw)
+    payload = run_signal_pipeline(frame, min_a=3, min_prr=2.0)
+    assert payload["stats"]["total_reports"] == 30
+    results = payload["results"]
+    ha = results[(results["Drug"] == "Drug-A") & (results["Adverse Event"] == "Headache")].iloc[0]
+    assert ha["a"] == 9
+    assert ha["PRR"] == pytest.approx(4.5)
+    assert ha["Signal Status"] == STATUS_SIGNAL
+    cf = results[(results["Drug"] == "Drug-C") & (results["Adverse Event"] == "Fatigue")].iloc[0]
+    assert cf["a"] == 3
+    assert cf["PRR"] == pytest.approx(7.0)
+    assert payload["n_signals"] >= 1
+
+
+def test_alias_columns_are_accepted():
+    raw = StringIO("Drug,Event\nAlpha,Rash\nBeta,Rash\n")
+    cleaned, _report = clean_adverse_events(load_adverse_event_csv(raw))
+    assert list(cleaned["drug_name"]) == ["Alpha", "Beta"]
+    assert list(cleaned["adverse_event"]) == ["Rash", "Rash"]
+
+
+def test_status_csv_maps_ich_documents_and_skips_missing_rows():
+    raw = """Section,Document,Status,Notes
+1.0,Administrative Information,Present,Application form and administrative details available
+2.1,CTD Table of Contents,Present,CTD structure and table of contents included
+2.2,Introduction,Present,Product introduction and development overview included
+2.3,Quality Overall Summary,Present,Quality summary document available
+2.4,Nonclinical Overview,Present,Nonclinical development overview available
+2.5,Clinical Overview,Missing,Clinical overview requires finalization
+3.2.S,Drug Substance,Present,Drug substance information available
+3.2.P,Drug Product,Present,Drug product manufacturing information available
+3.2.A,Appendices,Missing,Quality appendices are incomplete
+4.2,Pharmacology,Present,Primary and secondary pharmacology reports available
+4.3,Pharmacokinetics,Present,PK study reports available
+4.4,Toxicology,Missing,Final toxicology report is missing
+5.2,Tabular Listing of Clinical Studies,Present,Clinical study listing included
+5.3,Clinical Study Reports,Present,Major clinical study reports included
+5.4,Literature References,Missing,Final literature reference package is missing
+5.5,Clinical Summary,Present,Clinical summary available
+5.7,Safety Summary,Present,Integrated safety summary available
+"""
+    result = evaluate_dossier(parse_dossier_text(raw))
+    present = set(
+        result["gap_report"].loc[result["gap_report"]["Status"] == "Present", "Section"]
+    )
+    missing = set(
+        result["gap_report"].loc[result["gap_report"]["Status"] == "Missing", "Section"]
+    )
+    assert "Application Form" in present
+    assert "CTD Table of Contents" in present
+    assert "Drug Substance" in present
+    assert "Pharmacology Study Reports" in present
+    assert "Clinical Summary" in present
+    assert "Clinical Overview" in missing
+    assert "Toxicology Study Reports" in missing
+    assert "Appendices" in missing
+    assert "Clinical Literature References" in missing
+    assert result["present_total"] > 0
+    assert result["overall_score"] > 0
+
+
+def test_dossier_rejects_adverse_event_csv():
+    with pytest.raises(ValueError, match="Signal Detection"):
+        parse_dossier_text("drug_name,adverse_event\nDrug-A,Headache\n")
+
+
+def test_bundled_novalexa_demo_prr():
+    from pipeline import run_signal_pipeline
+    from utils import SAMPLE_SIGNAL_DEMO, STATUS_BELOW, STATUS_INSUFFICIENT
+
+    frame = load_adverse_event_csv(SAMPLE_SIGNAL_DEMO)
+    payload = run_signal_pipeline(frame, min_a=3, min_prr=2.0)
+    assert payload["stats"]["total_reports"] == 116
+    results = payload["results"]
+    row = results[(results["Drug"] == "Novalexa") & (results["Adverse Event"] == "Liver Injury")].iloc[0]
+    assert row["a"] == 18
+    assert row["PRR"] == pytest.approx(6.4054, rel=1e-3)
+    assert row["Signal Status"] == STATUS_SIGNAL
+    assert "Hepatic Injury" in str(row.get("Original Event", ""))
+    common = results[(results["Drug"] == "Novalexa") & (results["Adverse Event"] == "Headache")].iloc[0]
+    assert common["Signal Status"] == STATUS_BELOW
+    sparse = results[results["a"] < 3]
+    assert (sparse["Signal Status"] == STATUS_INSUFFICIENT).all()
+    assert payload["emerging_reason"] in {"ok", "insufficient_years"}
+
+
+def test_emerging_signal_requires_growth_and_prr():
+    from pipeline import run_signal_pipeline
+
+    rows = []
+    rows.extend([{"drug_name": "Solo", "adverse_event": "Hepatic Injury", "report_year": 2022}] * 3)
+    rows.extend([{"drug_name": "Solo", "adverse_event": "Hepatic Injury", "report_year": 2025}] * 10)
+    rows.extend([{"drug_name": "Other", "adverse_event": "Hepatic Injury", "report_year": 2022}] * 2)
+    rows.extend([{"drug_name": "Other", "adverse_event": "Headache", "report_year": 2022}] * 12)
+    rows.extend([{"drug_name": "Other", "adverse_event": "Headache", "report_year": 2025}] * 12)
+    payload = run_signal_pipeline(pd.DataFrame(rows), min_a=3, min_prr=2.0)
+    emerging = payload["emerging"]
+    assert payload["emerging_reason"] == "ok"
+    assert not emerging.empty
+    assert emerging.iloc[0]["Drug"] == "Solo"
+    assert emerging.iloc[0]["Adverse Event"] == "Liver Injury"
+    headache = payload["results"][
+        (payload["results"]["Drug"] == "Other") & (payload["results"]["Adverse Event"] == "Headache")
+    ].iloc[0]
+    assert headache["Signal Status"] != STATUS_SIGNAL
+
+
+def test_emerging_fallback_without_year():
+    from pipeline import run_signal_pipeline
+
+    rows = [{"drug_name": "A", "adverse_event": "X"}] * 5 + [{"drug_name": "B", "adverse_event": "Y"}] * 5
+    payload = run_signal_pipeline(pd.DataFrame(rows), min_a=3, min_prr=2.0)
+    assert payload["emerging_reason"] == "no_year"
+    assert payload["emerging"].empty
+
+
+def test_undefined_prr_and_synonym_columns():
+    from pipeline import run_signal_pipeline
+
+    frame = pd.DataFrame(
+        [{"drug_name": "Solo", "adverse_event": "Rare Event"}] * 5
+        + [{"drug_name": "Other", "adverse_event": "Headache"}] * 10
+    )
+    payload = run_signal_pipeline(frame, min_a=3, min_prr=2.0)
+    rare = payload["results"][
+        (payload["results"]["Drug"] == "Solo") & (payload["results"]["Adverse Event"] == "Rare Event")
+    ].iloc[0]
+    assert rare["Signal Status"] == STATUS_UNDEFINED
+    assert "Original Event" in payload["results"].columns
+
+
+def test_demo_checklist_5_9_and_5_10():
+    raw = """Section,Document,Status,Notes
+2.5,Clinical Overview,Present,ok
+5.9,Efficacy Summary,Missing,demo
+5.10,Integrated Benefit-Risk Summary,Present,demo
+"""
+    result = evaluate_dossier(parse_dossier_text(raw))
+    gap = result["gap_report"]
+    e9 = gap[gap["Section Code"] == "5.9"].iloc[0]
+    e10 = gap[gap["Section Code"] == "5.10"].iloc[0]
+    assert e9["Document"] == "Efficacy Summary"
+    assert e9["Status"] == "Missing"
+    assert "not a standard ICH M4" in e9["Notes"]
+    assert e10["Status"] == "Present"
+    assert result["module_scores"]["Completeness %"].between(0, 100).all()
+    assert 0 <= result["overall_score"] <= 100
+    assert "Efficacy Summary" in set(gap.loc[gap["Status"] == "Missing", "Section"])
+
+
+def test_modules_one_through_five_present_in_gap():
+    result = evaluate_dossier(["Cover Letter"])
+    modules = result["module_scores"]["Module"].tolist()
+    assert len(modules) == 5
+    assert any("Module 1" in m for m in modules)
+    assert any("Module 5" in m for m in modules)
+
+
+def test_unmapped_csv_does_not_score_zero_silently():
+    with pytest.raises(ValueError, match="Unrecognized dossier columns"):
+        parse_dossier_text("id,target\n1,0\n2,1\n")
+
+
+def test_unknown_ctd_code_errors():
+    with pytest.raises(ValueError, match="Unknown section codes|No checklist"):
+        parse_dossier_text("Section,Document,Status,Notes\n9.9,Not A Real Document,Present,x\n")
+
+
+def test_empty_dossier_input():
+    with pytest.raises(ValueError, match="empty"):
+        parse_dossier_text("   \n")
+
+
+def test_invalid_status_values():
+    with pytest.raises(ValueError, match="Invalid Status"):
+        parse_dossier_text("Section,Document,Status\n2.5,Clinical Overview,Maybe\n")
+
+
+def test_duplicate_dossier_sections():
+    with pytest.raises(ValueError, match="Duplicate dossier"):
+        parse_dossier_text(
+            "Section,Document,Status\n2.5,Clinical Overview,Present\n2.5,Clinical Overview,Present\n"
+        )
+
+
+def test_explain_signal_highlights_uses_calculated_fields():
+    from explanations import explain_signal_highlights
+    from pipeline import run_signal_pipeline
+    from utils import SAMPLE_SIGNAL_DEMO
+
+    frame = load_adverse_event_csv(SAMPLE_SIGNAL_DEMO)
+    payload = run_signal_pipeline(frame, min_a=3, min_prr=2.0)
+    row = payload["results"][
+        (payload["results"]["Drug"] == "Novalexa")
+        & (payload["results"]["Adverse Event"] == "Liver Injury")
+    ].iloc[0]
+    bullets = explain_signal_highlights(row.to_dict(), min_a=3, min_prr=2.0)
+    joined = " ".join(bullets)
+    assert "18" in joined
+    assert "2.0" in joined
+    assert "Hepatic Injury" in joined
+    assert "Liver Injury" in joined
+    assert row["PRR"] == pytest.approx(6.4054, rel=1e-3)
+
+
+def test_dossier_csv_rejected_in_signal_mode():
+    frame = pd.DataFrame(
+        {
+            "Section": ["2.5"],
+            "Document": ["Clinical Overview"],
+            "Status": ["Present"],
+        }
+    )
+    with pytest.raises(DataValidationError, match="Submission Readiness"):
+        clean_adverse_events(frame)
+
+
+def test_tfidf_kmeans_exposes_cluster_summaries():
+    from pipeline import run_signal_pipeline
+    from utils import SAMPLE_SIGNAL_DEMO
+
+    payload = run_signal_pipeline(load_adverse_event_csv(SAMPLE_SIGNAL_DEMO), min_a=3, min_prr=2.0)
+    clustering = payload["clustering"]
+    assert clustering["method"] == "tfidf_kmeans"
+    assert clustering["n_clusters"] >= 2
+    assert clustering["n_narrative_reports"] >= 8
+    summaries = clustering["summaries"]
+    assert "top_terms" in summaries.columns
+    assert "reports" in summaries.columns
+    assert "example_narratives" in summaries.columns
+    first = summaries.iloc[0]
+    assert str(first["top_terms"]).strip()
+    assert int(first["reports"]) >= 1
+    examples = first["example_narratives"]
+    assert len(list(examples)) >= 1
+    row = payload["results"][
+        (payload["results"]["Drug"] == "Novalexa")
+        & (payload["results"]["Adverse Event"] == "Liver Injury")
+    ].iloc[0]
+    assert row["PRR"] == pytest.approx(6.4054, rel=1e-3)
+    assert row["Signal Status"] == STATUS_SIGNAL
+
+
+
 
 

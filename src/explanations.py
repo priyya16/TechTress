@@ -97,3 +97,31 @@ def recommend_next_actions(missing_high: int, overall_score: float) -> list[str]
         "reviewer checklist against ICH M4 CTD structure."
     )
     return actions
+
+
+def explain_signal_highlights(row: dict, min_a: int = 3, min_prr: float = 2.0) -> list[str]:
+    """Short judge-facing bullets built from calculated PRR fields only."""
+    a = row.get("a")
+    prr = row.get("PRR")
+    status = row.get("Signal Status", "")
+    lines = [
+        f"Reports: **{a}**",
+        f"PRR: **{prr}**" if prr is not None else "PRR: **undefined**",
+        f"Signal threshold: **{min_prr}**",
+        f"Minimum cases: **{min_a}**",
+    ]
+    if status == STATUS_SIGNAL and prr is not None:
+        lines.append("PRR is above the configured threshold.")
+        lines.append(
+            "Reporting is disproportionately high compared with other drugs in this file."
+        )
+    elif prr is None:
+        lines.append("PRR could not be calculated from the 2x2 table (often c = 0).")
+    else:
+        lines.append(str(row.get("Notes", "Not flagged under the current screening rule.")))
+    original = row.get("Original Event")
+    canonical = row.get("Adverse Event")
+    if original and str(original).strip() and str(original) != str(canonical):
+        lines.append(f"**Original event:** {original}")
+        lines.append(f"**Canonical event:** {canonical}")
+    return lines

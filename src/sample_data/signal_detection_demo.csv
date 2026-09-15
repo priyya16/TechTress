@@ -1,0 +1,117 @@
+drug_name,adverse_event,case_id,report_year,age,sex,narrative,outcome
+Novalexa,Fatigue,SYN-1029,2025,52,M,Synthetic demo report: fatigue noted after Novalexa exposure.,Recovering
+Pulmovia,Headache,SYN-1094,2024,31,M,Synthetic demo report: headache noted after Pulmovia exposure.,Not Recovered
+Novalexa,Nausea,SYN-1024,2022,69,M,Synthetic demo report: nausea noted after Novalexa exposure.,Recovering
+Novalexa,Hepatic Injury,SYN-1012,2025,52,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovering
+Dermalune,Headache,SYN-1058,2025,38,M,Synthetic demo report: headache noted after Dermalune exposure.,Recovering
+Dermalune,Fatigue,SYN-1070,2025,61,M,Synthetic demo report: fatigue noted after Dermalune exposure.,Recovered
+Novalexa,Hepatic Injury,SYN-1007,2024,69,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Dermalune,Dizziness,SYN-1072,2022,61,M,Synthetic demo report: dizziness noted after Dermalune exposure.,Recovered
+Novalexa,Vision Disturbance,SYN-1035,2022,61,F,Synthetic demo report: vision disturbance noted after Novalexa exposure.,Not Recovered
+Pulmovia,Fatigue,SYN-1103,2025,24,F,Synthetic demo report: fatigue noted after Pulmovia exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1011,2024,52,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Cardiovin,Fatigue,SYN-1050,2023,31,F,Synthetic demo report: fatigue noted after Cardiovin exposure.,Recovering
+Novalexa,Skin Rash,SYN-1111,2024,66,M,Synthetic demo report: skin rash noted after Novalexa exposure.,Not Recovered
+Cardiovin,Nausea,SYN-1045,2022,24,M,Synthetic demo report: nausea noted after Cardiovin exposure.,Recovered
+Dermalune,Headache,SYN-1059,2025,69,F,Synthetic demo report: headache noted after Dermalune exposure.,Not Recovered
+Novalexa,Dizziness,SYN-1034,2025,52,M,Synthetic demo report: dizziness noted after Novalexa exposure.,Not Recovered
+Neurovex,Headache,SYN-1077,2023,52,F,Synthetic demo report: headache noted after Neurovex exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1018,2024,31,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovering
+Cardiovin,Nausea,SYN-1046,2023,31,M,Synthetic demo report: nausea noted after Cardiovin exposure.,Not Recovered
+Neurovex,Nausea,SYN-1084,2024,24,F,Synthetic demo report: nausea noted after Neurovex exposure.,Recovering
+Pulmovia,Hepatic Injury,SYN-1092,2022,24,M,Synthetic demo report: hepatic injury noted after Pulmovia exposure.,Recovering
+Dermalune,Hepatic Injury,SYN-1055,2025,31,F,Synthetic demo report: hepatic injury noted after Dermalune exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1008,2025,38,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Novalexa,Hepatic Injury,SYN-1014,2024,52,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Neurovex,Headache,SYN-1075,2022,52,F,Synthetic demo report: headache noted after Neurovex exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1004,2022,24,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Dermalune,Sleep Disturbance,SYN-1114,2022,66,M,Synthetic demo report: sleep disturbance noted after Dermalune exposure.,Recovering
+Cardiovin,Hepatic Injury,SYN-1036,2024,69,M,Synthetic demo report: hepatic injury noted after Cardiovin exposure.,Recovered
+Neurovex,Headache,SYN-1076,2023,45,F,Synthetic demo report: headache noted after Neurovex exposure.,Not Recovered
+Neurovex,Nausea,SYN-1082,2022,45,F,Synthetic demo report: nausea noted after Neurovex exposure.,Recovered
+Novalexa,Headache,SYN-1021,2023,31,M,Synthetic demo report: headache noted after Novalexa exposure.,Recovering
+Pulmovia,Fatigue,SYN-1105,2023,38,F,Synthetic demo report: fatigue noted after Pulmovia exposure.,Not Recovered
+Cardiovin,Fatigue,SYN-1051,2022,52,F,Synthetic demo report: fatigue noted after Cardiovin exposure.,Not Recovered
+Pulmovia,Dizziness,SYN-1106,2022,45,F,Synthetic demo report: dizziness noted after Pulmovia exposure.,Recovering
+Novalexa,Fatigue,SYN-1032,2023,69,M,Synthetic demo report: fatigue noted after Novalexa exposure.,Not Recovered
+Pulmovia,Nausea,SYN-1098,2023,45,F,Synthetic demo report: nausea noted after Pulmovia exposure.,Recovered
+Cardiovin,Fatigue,SYN-1048,2023,61,M,Synthetic demo report: fatigue noted after Cardiovin exposure.,Recovering
+Neurovex,Hepatic Injury,SYN-1074,2023,24,F,Synthetic demo report: hepatic injury noted after Neurovex exposure.,Recovered
+Pulmovia,Nausea,SYN-1100,2023,61,F,Synthetic demo report: nausea noted after Pulmovia exposure.,Not Recovered
+Novalexa,Fatigue,SYN-1030,2023,31,M,Synthetic demo report: fatigue noted after Novalexa exposure.,Recovered
+Novalexa,Hepatic Injury,SYN-1005,2022,52,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Dermalune,Fatigue,SYN-1068,2023,45,F,Synthetic demo report: fatigue noted after Dermalune exposure.,Recovering
+Novalexa,Fatigue,SYN-1031,2022,69,F,Synthetic demo report: fatigue noted after Novalexa exposure.,Recovered
+Neurovex,Headache,SYN-1078,2022,45,M,Synthetic demo report: headache noted after Neurovex exposure.,Recovering
+Novalexa,Hepatic Injury,SYN-1003,2022,52,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Novalexa,Hepatic Injury,SYN-1002,2023,31,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1010,2022,45,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovering
+Novalexa,Hepatic Injury,SYN-1013,2022,52,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1015,2022,24,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovering
+Novalexa,Headache,SYN-1020,2022,52,F,Synthetic demo report: headache noted after Novalexa exposure.,Not Recovered
+Cardiovin,Nausea,SYN-1044,2023,24,F,Synthetic demo report: nausea noted after Cardiovin exposure.,Not Recovered
+Pulmovia,Nausea,SYN-1097,2022,69,M,Synthetic demo report: nausea noted after Pulmovia exposure.,Not Recovered
+Neurovex,Nausea,SYN-1083,2023,52,M,Synthetic demo report: nausea noted after Neurovex exposure.,Recovered
+Neurovex,Dizziness,SYN-1091,2024,52,M,Synthetic demo report: dizziness noted after Neurovex exposure.,Recovering
+Dermalune,Nausea,SYN-1062,2023,31,M,Synthetic demo report: nausea noted after Dermalune exposure.,Recovered
+Dermalune,Nausea,SYN-1064,2023,69,F,Synthetic demo report: nausea noted after Dermalune exposure.,Recovering
+Pulmovia,Headache,SYN-1096,2022,61,F,Synthetic demo report: headache noted after Pulmovia exposure.,Not Recovered
+Pulmovia,Nausea,SYN-1099,2024,38,F,Synthetic demo report: nausea noted after Pulmovia exposure.,Recovering
+Dermalune,Nausea,SYN-1063,2025,31,M,Synthetic demo report: nausea noted after Dermalune exposure.,Recovering
+Novalexa,Dizziness,SYN-1033,2022,45,M,Synthetic demo report: dizziness noted after Novalexa exposure.,Not Recovered
+Novalexa,Headache,SYN-1019,2023,61,M,Synthetic demo report: headache noted after Novalexa exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1006,2025,31,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Pulmovia,Nausea,SYN-1101,2022,38,M,Synthetic demo report: nausea noted after Pulmovia exposure.,Not Recovered
+Novalexa,Headache,SYN-1022,2024,61,F,Synthetic demo report: headache noted after Novalexa exposure.,Not Recovered
+Dermalune,Headache,SYN-1061,2024,69,F,Synthetic demo report: headache noted after Dermalune exposure.,Recovered
+Dermalune,Nausea,SYN-1066,2023,31,M,Synthetic demo report: nausea noted after Dermalune exposure.,Recovering
+Novalexa,Nausea,SYN-1028,2023,61,M,Synthetic demo report: nausea noted after Novalexa exposure.,Not Recovered
+Cardiovin,Skin Rash,SYN-1112,2024,27,F,Synthetic demo report: skin rash noted after Cardiovin exposure.,Recovering
+Dermalune,Headache,SYN-1057,2023,24,F,Synthetic demo report: headache noted after Dermalune exposure.,Not Recovered
+Dermalune,Headache,SYN-1060,2022,24,M,Synthetic demo report: headache noted after Dermalune exposure.,Not Recovered
+Neurovex,Dizziness,SYN-1090,2023,61,M,Synthetic demo report: dizziness noted after Neurovex exposure.,Recovered
+Neurovex,Skin Rash,SYN-1113,2023,66,M,Synthetic demo report: skin rash noted after Neurovex exposure.,Recovered
+Novalexa,Nausea,SYN-1027,2025,31,M,Synthetic demo report: nausea noted after Novalexa exposure.,Recovered
+Cardiovin,Hepatic Injury,SYN-1037,2024,45,F,Synthetic demo report: hepatic injury noted after Cardiovin exposure.,Recovering
+Neurovex,Nausea,SYN-1081,2024,45,M,Synthetic demo report: nausea noted after Neurovex exposure.,Recovered
+Pulmovia,Sleep Disturbance,SYN-1115,2024,57,F,Synthetic demo report: sleep disturbance noted after Pulmovia exposure.,Recovering
+Neurovex,Fatigue,SYN-1087,2024,61,F,Synthetic demo report: fatigue noted after Neurovex exposure.,Recovered
+Neurovex,Dizziness,SYN-1089,2023,38,M,Synthetic demo report: dizziness noted after Neurovex exposure.,Not Recovered
+Pulmovia,Dizziness,SYN-1108,2024,69,F,Synthetic demo report: dizziness noted after Pulmovia exposure.,Recovered
+Dermalune,Dizziness,SYN-1073,2022,52,M,Synthetic demo report: dizziness noted after Dermalune exposure.,Not Recovered
+Neurovex,Headache,SYN-1079,2023,61,M,Synthetic demo report: headache noted after Neurovex exposure.,Recovered
+Novalexa,Headache,SYN-1023,2024,69,F,Synthetic demo report: headache noted after Novalexa exposure.,Recovered
+Cardiovin,Fatigue,SYN-1049,2024,45,M,Synthetic demo report: fatigue noted after Cardiovin exposure.,Recovered
+Cardiovin,Dizziness,SYN-1054,2024,24,F,Synthetic demo report: dizziness noted after Cardiovin exposure.,Recovering
+Novalexa,Nausea,SYN-1025,2024,24,F,Synthetic demo report: nausea noted after Novalexa exposure.,Not Recovered
+Novalexa,Hepatic Injury,SYN-1017,2025,38,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Not Recovered
+Dermalune,Dizziness,SYN-1071,2023,38,F,Synthetic demo report: dizziness noted after Dermalune exposure.,Recovered
+Cardiovin,Headache,SYN-1038,2022,61,M,Synthetic demo report: headache noted after Cardiovin exposure.,Not Recovered
+Cardiovin,Dizziness,SYN-1052,2023,24,F,Synthetic demo report: dizziness noted after Cardiovin exposure.,Not Recovered
+Cardiovin,Headache,SYN-1042,2022,52,M,Synthetic demo report: headache noted after Cardiovin exposure.,Recovering
+Cardiovin,Dizziness,SYN-1053,2022,31,F,Synthetic demo report: dizziness noted after Cardiovin exposure.,Recovered
+Pulmovia,Fatigue,SYN-1102,2023,31,F,Synthetic demo report: fatigue noted after Pulmovia exposure.,Recovered
+Cardiovin,Headache,SYN-1040,2024,69,F,Synthetic demo report: headache noted after Cardiovin exposure.,Recovered
+Dermalune,Nausea,SYN-1065,2022,24,F,Synthetic demo report: nausea noted after Dermalune exposure.,Recovered
+Cardiovin,Headache,SYN-1039,2023,52,F,Synthetic demo report: headache noted after Cardiovin exposure.,Not Recovered
+Novalexa,Skin Rash,SYN-1110,2024,42,F,Synthetic demo report: skin rash noted after Novalexa exposure.,Recovering
+Novalexa,Hepatic Injury,SYN-1016,2022,69,F,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Neurovex,Fatigue,SYN-1085,2024,31,M,Synthetic demo report: fatigue noted after Neurovex exposure.,Not Recovered
+Cardiovin,Headache,SYN-1041,2024,69,F,Synthetic demo report: headache noted after Cardiovin exposure.,Not Recovered
+Neurovex,Nausea,SYN-1080,2024,45,F,Synthetic demo report: nausea noted after Neurovex exposure.,Not Recovered
+Cardiovin,Nausea,SYN-1043,2022,24,M,Synthetic demo report: nausea noted after Cardiovin exposure.,Recovering
+Pulmovia,Dizziness,SYN-1107,2023,31,M,Synthetic demo report: dizziness noted after Pulmovia exposure.,Recovering
+Novalexa,Hepatic Injury,SYN-1009,2023,69,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Cardiovin,Vision Disturbance,SYN-1116,2023,42,F,Synthetic demo report: vision disturbance noted after Cardiovin exposure.,Not Recovered
+Cardiovin,Nausea,SYN-1047,2023,38,M,Synthetic demo report: nausea noted after Cardiovin exposure.,Recovered
+Novalexa,Nausea,SYN-1026,2024,31,M,Synthetic demo report: nausea noted after Novalexa exposure.,Recovering
+Neurovex,Fatigue,SYN-1086,2024,52,F,Synthetic demo report: fatigue noted after Neurovex exposure.,Not Recovered
+Pulmovia,Vision Disturbance,SYN-1109,2022,61,F,Synthetic demo report: vision disturbance noted after Pulmovia exposure.,Recovering
+Pulmovia,Headache,SYN-1095,2025,52,F,Synthetic demo report: headache noted after Pulmovia exposure.,Recovered
+Pulmovia,Headache,SYN-1093,2022,24,M,Synthetic demo report: headache noted after Pulmovia exposure.,Recovered
+Neurovex,Fatigue,SYN-1088,2024,24,F,Synthetic demo report: fatigue noted after Neurovex exposure.,Not Recovered
+Dermalune,Fatigue,SYN-1069,2024,69,M,Synthetic demo report: fatigue noted after Dermalune exposure.,Recovering
+Pulmovia,Fatigue,SYN-1104,2024,69,M,Synthetic demo report: fatigue noted after Pulmovia exposure.,Not Recovered
+Dermalune,Fatigue,SYN-1067,2025,31,M,Synthetic demo report: fatigue noted after Dermalune exposure.,Recovered
+Novalexa,Hepatic Injury,SYN-1001,2022,24,M,Synthetic demo report: hepatic injury noted after Novalexa exposure.,Recovered
+Dermalune,Hepatic Injury,SYN-1056,2025,31,M,Synthetic demo report: hepatic injury noted after Dermalune exposure.,Recovering

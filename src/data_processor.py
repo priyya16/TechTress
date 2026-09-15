@@ -8,28 +8,56 @@ from typing import Any
 import pandas as pd
 
 from quality import apply_severity_flags, apply_synonym_normalization
-from utils import OPTIONAL_AE_COLUMNS, REQUIRED_AE_COLUMNS
+from utils import (
+    CASE_ID_COLUMNS,
+    DRUG_COLUMN_ALIASES,
+    EVENT_COLUMN_ALIASES,
+    OPTIONAL_AE_COLUMNS,
+    REQUIRED_AE_COLUMNS,
+)
 
 
 class DataValidationError(ValueError):
     """Raised when an uploaded or sample dataset cannot be used."""
 
 
+def _rewind(source: Any) -> None:
+    if hasattr(source, "seek"):
+        try:
+            source.seek(0)
+        except Exception:  # noqa: BLE001
+            pass
+
+
 def _read_csv(source: Any) -> pd.DataFrame:
-    try:
-        if isinstance(source, (str, StringIO)):
-            return pd.read_csv(source)
-        return pd.read_csv(source)
-    except pd.errors.EmptyDataError as exc:
-        raise DataValidationError("Invalid CSV file. The file is empty.") from exc
-    except pd.errors.ParserError as exc:
-        raise DataValidationError("Invalid CSV file. Check delimiters and quoting.") from exc
-    except UnicodeDecodeError as exc:
+    attempts = (
+        {"encoding": "utf-8-sig"},
+        {"encoding": "utf-8-sig", "sep": None, "engine": "python"},
+        {"encoding": "latin-1"},
+    )
+    last_exc: Exception | None = None
+    for kwargs in attempts:
+        try:
+            _rewind(source)
+            return pd.read_csv(source, **kwargs)
+        except pd.errors.EmptyDataError as exc:
+            raise DataValidationError("Invalid CSV file. The file is empty.") from exc
+        except UnicodeDecodeError as exc:
+            last_exc = exc
+            continue
+        except pd.errors.ParserError as exc:
+            last_exc = exc
+            continue
+        except Exception as exc:  # noqa: BLE001 — try the next encoding/separator
+            last_exc = exc
+            continue
+    if isinstance(last_exc, UnicodeDecodeError):
         raise DataValidationError(
             "Invalid CSV file. Save the file as UTF-8 and try again."
-        ) from exc
-    except Exception as exc:  # noqa: BLE001 — surface a readable UI error
-        raise DataValidationError("Invalid CSV file.") from exc
+        ) from last_exc
+    if isinstance(last_exc, pd.errors.ParserError):
+        raise DataValidationError("Invalid CSV file. Check delimiters and quoting.") from last_exc
+    raise DataValidationError("Invalid CSV file.") from last_exc
 
 
 def load_adverse_event_csv(source: Any) -> pd.DataFrame:
@@ -41,18 +69,51 @@ def load_adverse_event_csv(source: Any) -> pd.DataFrame:
     return frame
 
 
+def _column_lookup(frame: pd.DataFrame) -> dict[str, str]:
+    lookup: dict[str, str] = {}
+    for col in frame.columns:
+        key = str(col).strip().lower().replace(" ", "_")
+        lookup[key] = col
+        lookup[str(col).strip().lower()] = col
+    return lookup
+
+
+def _looks_like_dossier(frame: pd.DataFrame) -> bool:
+    keys = set(_column_lookup(frame))
+    dossier_hints = {"section", "document", "status", "dossier_section", "module"}
+    ae_hints = set(DRUG_COLUMN_ALIASES) | set(EVENT_COLUMN_ALIASES)
+    return len(keys & dossier_hints) >= 2 and not (keys & ae_hints)
+
+
 def validate_required_columns(frame: pd.DataFrame) -> list[str]:
-    """Return missing required columns."""
-    lookup = {str(col).strip().lower(): col for col in frame.columns}
-    missing = [col for col in REQUIRED_AE_COLUMNS if col not in lookup]
+    """Return missing required columns after alias matching."""
+    lookup = _column_lookup(frame)
+    missing = []
+    if not any(alias in lookup for alias in DRUG_COLUMN_ALIASES):
+        missing.append("drug_name")
+    if not any(alias in lookup for alias in EVENT_COLUMN_ALIASES):
+        missing.append("adverse_event")
     return missing
 
 
+def _resolve_alias(lookup: dict[str, str], aliases: tuple[str, ...]) -> str | None:
+    for alias in aliases:
+        if alias in lookup:
+            return lookup[alias]
+    return None
+
+
 def _standardize_columns(frame: pd.DataFrame) -> pd.DataFrame:
-    rename = {}
-    lookup = {str(col).strip().lower(): col for col in frame.columns}
-    for col in list(REQUIRED_AE_COLUMNS) + list(OPTIONAL_AE_COLUMNS):
-        if col in lookup:
+    lookup = _column_lookup(frame)
+    rename: dict[str, str] = {}
+    drug_col = _resolve_alias(lookup, DRUG_COLUMN_ALIASES)
+    event_col = _resolve_alias(lookup, EVENT_COLUMN_ALIASES)
+    if drug_col:
+        rename[drug_col] = "drug_name"
+    if event_col:
+        rename[event_col] = "adverse_event"
+    for col in OPTIONAL_AE_COLUMNS:
+        if col in lookup and lookup[col] not in rename:
             rename[lookup[col]] = col
     return frame.rename(columns=rename)
 
@@ -62,12 +123,22 @@ def clean_adverse_events(frame: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, i
 
     Returns the cleaned frame and a report of dropped records.
     """
+    if _looks_like_dossier(frame):
+        raise DataValidationError(
+            "This CSV looks like a CTD dossier outline (section/document/status), "
+            "not adverse-event reports. Open Submission Readiness and upload it there."
+        )
+
     missing = validate_required_columns(frame)
     if missing:
+        found = ", ".join(str(col) for col in frame.columns)
         raise DataValidationError(
             "Required column missing: "
             + ", ".join(missing)
-            + ". Expected columns are drug_name and adverse_event."
+            + ". Expected a drug column (drug_name / drug / product) and an event "
+            "column (adverse_event / event / pt). Found: "
+            + found
+            + "."
         )
 
     cleaned = _standardize_columns(frame).copy()
@@ -99,8 +170,15 @@ def clean_adverse_events(frame: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, i
     if "report_year" in cleaned.columns:
         cleaned["report_year"] = pd.to_numeric(cleaned["report_year"], errors="coerce")
 
-    duplicate_rows = int(cleaned.duplicated().sum())
-    cleaned = cleaned.drop_duplicates().reset_index(drop=True)
+    id_cols = [col for col in CASE_ID_COLUMNS if col in cleaned.columns]
+    if id_cols:
+        subset = id_cols + ["drug_name", "adverse_event"]
+        duplicate_rows = int(cleaned.duplicated(subset=subset).sum())
+        cleaned = cleaned.drop_duplicates(subset=subset).reset_index(drop=True)
+    else:
+        # Repeated drug-event rows are separate reports and must be kept for PRR.
+        duplicate_rows = 0
+        cleaned = cleaned.reset_index(drop=True)
 
     if cleaned.empty:
         raise DataValidationError("No usable records found.")
