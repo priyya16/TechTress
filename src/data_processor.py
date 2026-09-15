@@ -73,17 +73,22 @@ def clean_adverse_events(frame: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, i
     cleaned = _standardize_columns(frame).copy()
     original_rows = len(cleaned)
 
-    cleaned["drug_name"] = cleaned["drug_name"].astype(str).str.strip()
-    cleaned["adverse_event"] = cleaned["adverse_event"].astype(str).str.strip()
+    drug_series = cleaned["drug_name"]
+    event_series = cleaned["adverse_event"]
 
     invalid_mask = (
-        cleaned["drug_name"].eq("")
-        | cleaned["adverse_event"].eq("")
-        | cleaned["drug_name"].str.lower().isin(["nan", "none", "null"])
-        | cleaned["adverse_event"].str.lower().isin(["nan", "none", "null"])
+        drug_series.isna()
+        | event_series.isna()
+        | drug_series.fillna("").astype(str).str.strip().eq("")
+        | event_series.fillna("").astype(str).str.strip().eq("")
+        | drug_series.fillna("").astype(str).str.strip().str.lower().isin(["nan", "none", "null"])
+        | event_series.fillna("").astype(str).str.strip().str.lower().isin(["nan", "none", "null"])
     )
     invalid_rows = int(invalid_mask.sum())
     cleaned = cleaned.loc[~invalid_mask].copy()
+
+    cleaned["drug_name"] = cleaned["drug_name"].astype(str).str.strip()
+    cleaned["adverse_event"] = cleaned["adverse_event"].astype(str).str.strip()
 
     cleaned, map_stats = apply_synonym_normalization(cleaned)
     cleaned = apply_severity_flags(cleaned)

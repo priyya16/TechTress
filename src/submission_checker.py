@@ -6,6 +6,7 @@ It is not a complete regulatory submission checklist.
 
 from __future__ import annotations
 
+from io import StringIO
 from pathlib import Path
 
 import pandas as pd
@@ -91,17 +92,77 @@ def parse_dossier_text(text: str) -> list[str]:
     if text is None or not str(text).strip():
         raise ValueError("Dossier input is empty. Paste an outline or upload a file.")
 
+    cleaned_text = str(text).strip()
+    # 1. Attempt to parse as structured CSV if commas or tabs exist
+    if "," in cleaned_text or "\t" in cleaned_text:
+        try:
+            df = pd.read_csv(StringIO(cleaned_text))
+            if not df.empty:
+                col_lookup = {str(c).strip().lower(): c for c in df.columns}
+                section_col = None
+                for candidate in ["section", "section_name", "dossier_section", "sections", "title", "name"]:
+                    if candidate in col_lookup:
+                        section_col = col_lookup[candidate]
+                        break
+
+                if section_col is not None:
+                    # If there is a 'status' column (e.g. from an exported gap report)
+                    if "status" in col_lookup:
+                        status_col = col_lookup["status"]
+                        is_present = ~df[status_col].astype(str).str.strip().str.lower().isin(
+                            ["missing", "absent", "gap", "0", "false", "no"]
+                        )
+                        df = df[is_present]
+
+                    sections = [str(val).strip() for val in df[section_col].dropna() if str(val).strip()]
+                    if sections:
+                        res = []
+                        for s in sections:
+                            for sep in ("|", ":", " - ", " — "):
+                                if sep in s:
+                                    s = [p.strip() for p in s.split(sep) if p.strip()][-1]
+                                    break
+                            res.append(s)
+                        return res
+                elif len(df.columns) == 1:
+                    first_col = df.columns[0]
+                    vals = [str(val).strip() for val in df[first_col].dropna() if str(val).strip()]
+                    if vals:
+                        res = []
+                        for s in vals:
+                            for sep in ("|", ":", " - ", " — "):
+                                if sep in s:
+                                    s = [p.strip() for p in s.split(sep) if p.strip()][-1]
+                                    break
+                            res.append(s)
+                        return res
+        except Exception:
+            pass
+
+    # 2. Line-by-line parsing for text files / pasted text
     lines = []
-    for raw in str(text).splitlines():
+    for raw in cleaned_text.splitlines():
         line = raw.strip()
         if not line or line.startswith("#"):
             continue
-        if line.lower().startswith("module ") and ":" not in line and "|" not in line:
+        if line.lower().startswith("module,section"):
             continue
-        for sep in ("|", ":", " - ", " — "):
+        if (
+            line.lower().startswith("module ")
+            and ":" not in line
+            and "|" not in line
+            and " — " not in line
+            and " - " not in line
+            and "," not in line
+        ):
+            continue
+        for sep in (",", "|", ":", " - ", " — "):
             if sep in line:
                 parts = [p.strip() for p in line.split(sep) if p.strip()]
-                line = parts[-1]
+                if sep == "," and len(parts) >= 2:
+                    line = parts[1]
+                else:
+                    line = parts[-1]
                 break
         lines.append(line)
     if not lines:

@@ -1,0 +1,31 @@
+Module,Section,Status,Priority,Recommendation
+Module 1 — Administrative Information and Prescribing Information,Cover Letter,Present,Medium,Section found in the representative outline.
+Module 1 — Administrative Information and Prescribing Information,Application Form,Present,High,Section found in the representative outline.
+Module 1 — Administrative Information and Prescribing Information,Product Information / Labeling,Present,High,Section found in the representative outline.
+Module 1 — Administrative Information and Prescribing Information,Pharmacovigilance System Summary,Missing,Medium,Include this representative section to strengthen the dossier outline.
+Module 1 — Administrative Information and Prescribing Information,Environmental Risk Assessment,Missing,Low,Add this section after high-priority gaps are closed.
+Module 2 — Common Technical Document Summaries,CTD Table of Contents,Present,Medium,Section found in the representative outline.
+Module 2 — Common Technical Document Summaries,Introduction,Present,Medium,Section found in the representative outline.
+Module 2 — Common Technical Document Summaries,Quality Overall Summary,Present,High,Section found in the representative outline.
+Module 2 — Common Technical Document Summaries,Nonclinical Overview,Missing,High,Add the required representative section before claiming module completeness.
+Module 2 — Common Technical Document Summaries,Clinical Overview,Present,High,Section found in the representative outline.
+Module 2 — Common Technical Document Summaries,Nonclinical Written and Tabulated Summaries,Missing,Medium,Include this representative section to strengthen the dossier outline.
+Module 2 — Common Technical Document Summaries,Clinical Summary,Present,High,Section found in the representative outline.
+Module 3 — Quality,Drug Substance,Present,High,Section found in the representative outline.
+Module 3 — Quality,Drug Product,Present,High,Section found in the representative outline.
+Module 3 — Quality,Pharmaceutical Development,Present,High,Section found in the representative outline.
+Module 3 — Quality,Manufacture,Present,High,Section found in the representative outline.
+Module 3 — Quality,Control of Drug Product,Missing,High,Add the required representative section before claiming module completeness.
+Module 3 — Quality,Stability,Missing,High,Add the required representative section before claiming module completeness.
+Module 3 — Quality,Container Closure System,Missing,Medium,Include this representative section to strengthen the dossier outline.
+Module 3 — Quality,Appendices,Missing,Low,Add this section after high-priority gaps are closed.
+Module 4 — Nonclinical Study Reports,Pharmacology Study Reports,Present,High,Section found in the representative outline.
+Module 4 — Nonclinical Study Reports,Pharmacokinetics Study Reports,Missing,High,Add the required representative section before claiming module completeness.
+Module 4 — Nonclinical Study Reports,Toxicology Study Reports,Present,High,Section found in the representative outline.
+Module 4 — Nonclinical Study Reports,Nonclinical Literature References,Missing,Low,Add this section after high-priority gaps are closed.
+Module 5 — Clinical Study Reports,Tabular Listing of Clinical Studies,Present,High,Section found in the representative outline.
+Module 5 — Clinical Study Reports,Biopharmaceutic Study Reports,Missing,Medium,Include this representative section to strengthen the dossier outline.
+Module 5 — Clinical Study Reports,Clinical Safety Study Reports,Missing,High,Add the required representative section before claiming module completeness.
+Module 5 — Clinical Study Reports,Clinical Efficacy Study Reports,Present,High,Section found in the representative outline.
+Module 5 — Clinical Study Reports,Case Report Forms,Missing,Medium,Include this representative section to strengthen the dossier outline.
+Module 5 — Clinical Study Reports,Clinical Literature References,Missing,Low,Add this section after high-priority gaps are closed.

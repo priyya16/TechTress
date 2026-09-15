@@ -8,6 +8,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from data_processor import DataValidationError
 from quality import cases_for_pair, counts_by_year
 from explanations import explain_gap, explain_prr_row, recommend_next_actions
 from pipeline import friendly_error, load_reports, run_dossier_pipeline, run_signal_pipeline
@@ -512,6 +513,13 @@ def render_submission() -> None:
             st.metric(_module_label(rec["Module"]), f"{rec['Completeness %']}%")
             st.progress(min(max(rec["Completeness %"] / 100.0, 0.0), 1.0))
 
+    if result["present_total"] == 0:
+        st.warning(
+            "⚠️ **0 recognized dossier sections found.** None of the lines in this file matched the representative ICH M4 CTD sections. "
+            "If you uploaded an adverse-event file (e.g., `adverse_events.csv`), switch to **Mode 1 — Signal Detection** in the sidebar. "
+            "For Submission Readiness, use a dossier outline file like `sample_data/demo_video_dossier.csv` or choose **Sample / Synthetic Data** above."
+        )
+
     st.dataframe(result["module_scores"], use_container_width=True)
     fig = px.bar(
         result["module_scores"],
@@ -521,8 +529,11 @@ def render_submission() -> None:
         title="Module-wise readiness",
         color="Completeness %",
         color_continuous_scale="Tealgrn",
+        range_color=[0, 100],
         range_x=[0, 100],
+        text="Completeness %",
     )
+    fig.update_traces(texttemplate="%{text:.0f}%", textposition="outside")
     fig.update_layout(**CHART_LAYOUT)
     st.plotly_chart(fig, use_container_width=True)
 

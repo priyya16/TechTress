@@ -1,0 +1,8 @@
+{
+  "name": "techtress-portal",
+  "version": "1.0.0",
+  "description": "TechTress - Drug Safety Signal Detector & Regulatory Submission Readiness Checker",
+  "scripts": {
+    "build": "echo 'Ready for Vercel'"
+  }
+}

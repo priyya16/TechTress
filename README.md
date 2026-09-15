@@ -114,8 +114,8 @@ More detail: [docs/setup-guide.md](docs/setup-guide.md) · [docs/architecture.md
 
 | Artifact | Link |
 |---|---|
-| 📹 Demo Video | [See demo/demo-video-link.txt](demo/demo-video-link.txt) |
-| 🌐 Live Demo | [See demo/live-demo-url.txt](demo/live-demo-url.txt) |
+| 🖥️ Demo Video | [https://techtress-msoucaepzad3tlnqbwbdfg.streamlit.app/](https://techtress-msoucaepzad3tlnqbwbdfg.streamlit.app/) |
+| 🌐 Live Demo | [https://techtress-msoucaepzad3tlnqbwbdfg.streamlit.app/](https://techtress-msoucaepzad3tlnqbwbdfg.streamlit.app/) |
 | 🖼️ Screenshots | [See demo/screenshots/](demo/screenshots/) |
 | 📊 Presentation | [See presentation/slides.pdf](presentation/) |
 
